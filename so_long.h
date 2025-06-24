@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:02:03 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/23 22:26:13 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:14:24 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_game
 	void    *grass_img;
 	void    *player_img;
 	void    *exit_img;
+	void    *win_img;
+	void    *score_back_img;
     char    **map;
     int     img_width;
     int     img_height;
@@ -45,8 +47,18 @@ typedef struct s_game
     int     fd;
     int		player_x;
 	int		player_y;
+	int		new_player_x;
+	int		new_player_y;
+	int		game_win;
+	int		exit_x;
+	int		exit_y;
+	int		score_back1_x;
+	int		score_back1_y;
+	int		score_back2_x;
+	int		score_back2_y;
     int     collectable_score;
 	char	*collectable_str;
+	int		movements;
 }	t_game;
 
 char	*get_next_line(int fd);

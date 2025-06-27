@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:02:03 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/25 19:08:01 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:18:57 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,9 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-    void    *wall_img;
-	void    *collectable_img;
-	void    *grass_img;
-	void    *player_front_img;
-	void    *player_right_img;
-	void    *player_left_img;
-	void    *player_back_img;
-	void    *exit_img;
-	void    *open_exit_img;
-	void    *win2_img;
-	void    *score_back_img;
+	void    *mlx_destroy_display;
     char    **map;
+	void	**img;
     int     img_width;
     int     img_height;
 	int		win_width;
@@ -48,16 +39,15 @@ typedef struct s_game
 	int		tile_w;
 	int		tile_h;
 	int		line_len;
-    void    *mlx_destroy_display;
     int     fd;
-    int		player_x;
-	int		player_y;
-	int		new_player_x;
-	int		new_player_y;
+    int		p_x;
+	int		p_y;
+	int		np_x;
+	int		np_y;
 	int		game_win;
 	int		exit_x;
 	int		exit_y;
-    int     collectable_score;
+    int     collectables;
 	int		movements;
 }	t_game;
 
@@ -72,5 +62,12 @@ int	ft_printf(const char *para, ...);
 int	ft_putchar(char c);
 int	ft_putunbr(unsigned int n);
 char	*ft_itoa(int n);
+int	get_image(t_game *game);
+int	get_map(t_game *game);
+void	put_image_map(int y, int x, t_game *game);
+void	draw_map(t_game *game);
+void	get_score(t_game *game);
+void move_player(t_game *game, int	keycode);
+int	move_check(t_game *game);
 
 #endif

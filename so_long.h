@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:02:03 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/27 19:18:57 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:46:27 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+#include "mlx.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
 typedef struct s_game
 {
@@ -30,6 +34,7 @@ typedef struct s_game
 	void	*win;
 	void    *mlx_destroy_display;
     char    **map;
+	char	**map_cpy;
 	void	**img;
     int     img_width;
     int     img_height;
@@ -49,6 +54,8 @@ typedef struct s_game
 	int		exit_y;
     int     collectables;
 	int		movements;
+	int		p;
+	int		e;
 }	t_game;
 
 char	*get_next_line(int fd);
@@ -69,5 +76,11 @@ void	draw_map(t_game *game);
 void	get_score(t_game *game);
 void move_player(t_game *game, int	keycode);
 int	move_check(t_game *game);
+int	map_check(t_game *game);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	map_copy(t_game *game);
+void	get_cep(t_game *game);
+void	get_pos(t_game *game);
+int	get_helpers(t_game *game);
 
 #endif

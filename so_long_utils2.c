@@ -6,12 +6,10 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:26:56 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/27 15:27:18 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:48:32 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include "so_long.h"
 
 int	ft_putnbr(int n)

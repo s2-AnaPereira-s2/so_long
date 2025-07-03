@@ -6,16 +6,11 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:20:06 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/27 19:12:54 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/02 17:38:27 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "so_long.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
 
 int	close_window()
 {
@@ -64,6 +59,9 @@ int	main(void)
 	game.win_height = game.map_height + (3 * 32);
 	game.win = mlx_new_window(game.mlx, game.win_width, game.win_height, "Ana Game!");
 	get_image(&game);
+	get_helpers(&game);
+	if (map_check(&game))
+		return (0);
 	draw_map(&game);
 	mlx_key_hook(game.win, keypress, &game);
 	mlx_hook(game.win, 17, 0, close_window, NULL);

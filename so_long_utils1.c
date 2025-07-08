@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 21:49:27 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/02 15:48:20 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:27:12 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,9 @@ char	*ft_strdup(char *s)
 	src_c[i] = '\0';
 	return (src_c);
 }
+
 int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
-
-

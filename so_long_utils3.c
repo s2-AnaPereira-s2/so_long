@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   so_long_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 14:57:24 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/02 16:57:18 by ana-pdos         ###   ########.fr       */
+/*   Created: 2025/07/08 13:42:19 by ana-pdos          #+#    #+#             */
+/*   Updated: 2025/07/08 19:00:36 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	map_copy(t_game *game)
 {
-	int y;
+	int	y;
 
 	y = 0;
 	game->map_cpy = ft_calloc((game->map_height / 32) + 1, sizeof(char *));
 	if (!game->map_cpy)
-		return;
+		return ;
 	while (game->map[y])
 	{
 		game->map_cpy[y] = ft_strdup(game->map[y]);
 		if (!game->map_cpy[y])
-			return;
+			return ;
 		y++;
 	}
 }
@@ -33,15 +33,12 @@ void	get_cep(t_game *game)
 {
 	int	y;
 	int	x;
-	
-	game->p = 0;
-	game->e = 0;
-	game->collectables = 0;
+
 	y = 0;
-	while(game->map[y])
+	while (game->map[y])
 	{
 		x = 0;
-		while(game->map[y][x] != '\n' && game->map[y][x] != '\0')
+		while (game->map[y][x] != '\n' && game->map[y][x] != '\0')
 		{
 			if (game->map[y][x] == 'P')
 				game->p += 1;
@@ -59,12 +56,12 @@ void	get_pos(t_game *game)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
-	while(game->map[y])
+	while (game->map[y])
 	{
 		x = 0;
-		while(game->map[y][x] != '\n' && game->map[y][x] != '\0')
+		while (game->map[y][x] != '\n' && game->map[y][x] != '\0')
 		{
 			if (game->map[y][x] == 'P')
 			{
@@ -88,4 +85,9 @@ int	get_helpers(t_game *game)
 	get_pos(game);
 	get_cep(game);
 	return (0);
+}
+
+int	put_img_window(t_game *game, char *img, int x, int y)
+{
+	return (mlx_put_image_to_window(game->mlx, game->win, img, x, y));
 }

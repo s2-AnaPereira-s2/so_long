@@ -6,14 +6,11 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:35:46 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/23 22:05:11 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 08:55:15 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <unistd.h>
 
 static int	check(const char c, va_list args)
 {

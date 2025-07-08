@@ -6,13 +6,10 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 18:19:32 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/23 21:42:47 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 08:54:33 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "so_long.h"
 
 static char	*check_leftovers(char **leftovers)
@@ -32,6 +29,8 @@ static char	*check_leftovers(char **leftovers)
 		{
 			line = ft_substr(*leftovers, 0, i + 1);
 			temp = ft_substr(*leftovers, i + 1, length - (i + 1));
+			if (!temp)
+				return (free(line), NULL);
 			free(*leftovers);
 			*leftovers = temp;
 			return (line);
@@ -67,7 +66,7 @@ char	*get_next_line(int fd)
 	ssize_t		bytes;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (free(leftovers), leftovers = NULL, NULL);
 	line = check_leftovers(&leftovers);
 	if (line)
 		return (line);

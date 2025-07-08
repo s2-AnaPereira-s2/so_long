@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:26:56 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/02 15:48:32 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 09:20:48 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_putnbr(int n)
 	count += write (1, &number, 1);
 	return (count);
 }
+
 int	ft_putstr(char *s)
 {
 	int	i;

@@ -6,12 +6,11 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:40:07 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/06/23 22:20:40 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 08:55:03 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

@@ -6,12 +6,10 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:42:31 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/02 12:43:01 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/08 08:54:56 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
 #include "so_long.h"
 
 static void	*ft_memset(void *s, int c, size_t n)

@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:32:36 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 18:36:19 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:31:44 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	get_map(t_game *game)
 
 	size = get_length(game);
 	if (size == 0)
-		return (0);
+		return (close_window(game));
 	game->map = ft_calloc(sizeof(char *), size);
 	if (!game->map)
 		return (0);
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (0);
+		return (close(game->fd), close_window(game));
 	line = get_next_line(game->fd);
 	game->map[0] = line;
 	size = 1;
@@ -35,6 +35,8 @@ int	get_map(t_game *game)
 		game->map[size] = line;
 		size++;
 	}
+	if (char_check(game))
+		return (close(game->fd), free(line), close_window(game));
 	return (close(game->fd), size);
 }
 
@@ -44,7 +46,7 @@ int	get_image(t_game *game)
 
 	game->img = malloc(sizeof(void *) * (12));
 	if (!game->img)
-		return (ft_printf("Error\n"), exit(1), 1);
+		return (ft_printf("Error\n"), close_window(game));
 	i = 0;
 	while (i < 11)
 	{
@@ -63,11 +65,11 @@ int	get_image(t_game *game)
 	game->img[9] = file_to_img(game, "textures/door.xpm");
 	game->img[10] = file_to_img(game, "textures/open_door.xpm");
 	if (check_images(game, 11))
-		return (perror("Error: failed to load image\n"), 1);
+		return (perror("Error: failed to load image\n"), exit(0), 1);
 	return (0);
 }
 
-void	put_image_map(int y, int x, t_game *game)
+int	put_image_map(int y, int x, t_game *game)
 {
 	while (game->map[y][x] && game->map[y][x] != '\n')
 	{
@@ -87,6 +89,7 @@ void	put_image_map(int y, int x, t_game *game)
 				game->img_height * y);
 		x++;
 	}
+	return (0);
 }
 
 void	draw_map(t_game *game)

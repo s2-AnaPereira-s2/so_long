@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 08:48:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 18:54:53 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:39:41 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	free_map_cpy(t_game *game)
 {
 	int	i;
 
-	i = 0;
 	if (!game->map_cpy)
 		return ;
+	i = 0;
 	while (game->map_cpy[i])
 	{
 		free(game->map_cpy[i]);

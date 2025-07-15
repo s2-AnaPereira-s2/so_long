@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:02:03 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 17:59:30 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:31:58 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_putunbr(unsigned int n);
 char	*ft_itoa(int n);
 int		get_image(t_game *game);
 int		get_map(t_game *game);
-void	put_image_map(int y, int x, t_game *game);
+int		put_image_map(int y, int x, t_game *game);
 void	draw_map(t_game *game);
 void	get_score(t_game *game);
 int		move_player(t_game *game, int keycode);
@@ -90,5 +90,7 @@ int		check_images(t_game *game, int size);
 int		get_length(t_game *game);
 void	init_game(t_game *game);
 int		window_check(t_game *game);
+int		char_check(t_game *game);
+int		bad_extension(t_game *game);
 
 #endif

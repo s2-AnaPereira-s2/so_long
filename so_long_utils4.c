@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 14:57:24 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 18:39:21 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:14:50 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	init_game(t_game *game)
 	game->movements = 0;
 	game->p = 0;
 	game->e = 0;
+	game->map_cpy = NULL;
+	game->map = NULL;
+	game->img = NULL;
+	game->mlx = NULL;
+	game->win = NULL;
 }
 
 void	*file_to_img(t_game *game, char *path)
@@ -63,7 +68,9 @@ int	get_length(t_game *game)
 
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (perror("Wrong file"), exit(1), 1);
+		return (perror("Wrong file"), close(game->fd), close_window(game));
+	if (bad_extension(game))
+		return (close(game->fd), close_window(game));
 	line = get_next_line(game->fd);
 	game->line_len = ft_strlen(line);
 	size = 1;

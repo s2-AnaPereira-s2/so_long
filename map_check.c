@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:15 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 09:57:14 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:09:56 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	is_rectangular(t_game *game)
 
 int	p_e_collectables(t_game *game)
 {
-	if (game->p > 1 || game->e > 1 || game->collectables == 0)
+	if (game->p != 1 || game->e != 1 || game->collectables == 0)
 		return (1);
 	return (0);
 }
@@ -71,8 +71,14 @@ int	is_path(t_game *game, int y, int x)
 {
 	if (y < 0 || x < 0 || y >= game->map_height / 32 || x >= game->line_len)
 		return (0);
-	if (game->map_cpy[y][x] == '1' || game->map_cpy[y][x] == 'X')
+	if (game->map_cpy[y][x] == '1' || game->map_cpy[y][x] == 'X' 
+		|| game->map_cpy[y][x] == 'O')
 		return (0);
+	if (game->map_cpy[y][x] == 'E')
+	{
+		game->map_cpy[y][x] = 'O';
+		return (0);
+	}
 	game->map_cpy[y][x] = 'X';
 	is_path(game, y - 1, x);
 	is_path(game, y + 1, x);
@@ -87,13 +93,13 @@ int	map_check(t_game *game)
 	int	j;
 
 	if (is_rectangular(game))
-		return (perror("Map is not rectangular"), exit(1), 1);
+		return (perror("Map is not rectangular"), close_window(game));
 	if (p_e_collectables(game))
-		return (perror("2 players/exit or 0 collectable"), exit(1), 1);
+		return (perror("2 players/exit or 0 collectable"), close_window(game));
 	if (wall_surround(game))
-		return (perror("Map not surrounded by walls"), exit(1), 1);
+		return (perror("Map not surrounded by walls"), close_window(game));
 	if (is_path(game, game->p_y / 32, game->p_x / 32))
-		return (perror("Player outside the map"), exit(1), 1);
+		return (perror("Player outside the map"), close_window(game));
 	i = 0;
 	while (game->map_cpy[i])
 	{
@@ -101,8 +107,7 @@ int	map_check(t_game *game)
 		while (game->map_cpy[i][j])
 		{
 			if (game->map_cpy[i][j] == 'C' || game->map_cpy[i][j] == 'E')
-				return (perror("Map has no valid path"), 
-					free(game->map_cpy), exit(1), 1);
+				return (perror("Map has no valid path"), close_window(game));
 			j++;
 		}
 		i++;

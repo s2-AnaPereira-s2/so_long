@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:03:38 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 18:59:15 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:32:38 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ int	move_player(t_game *game, int keycode)
 {
 	if (keycode == KEY_ESC)
 		return (close_window(game), 0);
-	if (keycode == KEY_RIGHT)
+	if (keycode == KEY_RIGHT || keycode == 'd')
 	{
 		put_img_window(game, game->img[1], game->p_x, game->p_y); 
 		put_img_window(game, game->img[4], game->np_x, game->np_y);
 	}
-	else if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT || keycode == 'a')
 	{
 		put_img_window(game, game->img[1], game->p_x, game->p_y); 
 		put_img_window(game, game->img[5], game->np_x, game->np_y);
 	}
-	else if (keycode == KEY_UP)
+	else if (keycode == KEY_UP || keycode == 'w')
 	{
 		put_img_window(game, game->img[1], game->p_x, game->p_y); 
 		put_img_window(game, game->img[3], game->np_x, game->np_y);
 	}
-	else if (keycode == KEY_DOWN)
+	else if (keycode == KEY_DOWN || keycode == 's')
 	{
 		put_img_window(game, game->img[1], game->p_x, game->p_y); 
 		put_img_window(game, game->img[2], game->np_x, game->np_y);

@@ -1,95 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils4.c                                   :+:      :+:    :+:   */
+/*   so_long_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 14:57:24 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/14 18:14:50 by ana-pdos         ###   ########.fr       */
+/*   Created: 2025/07/14 09:46:09 by ana-pdos          #+#    #+#             */
+/*   Updated: 2025/07/14 18:07:41 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_game(t_game *game)
-{
-	game->img_width = 0;
-	game->img_height = 0;
-	game->win_width = 0;
-	game->win_height = 0;
-	game->map_height = 0;
-	game->tile_w = 0;
-	game->tile_h = 0;
-	game->line_len = 0;
-	game->fd = -1;
-	game->p_x = 0;
-	game->p_y = 0;
-	game->np_x = 0;
-	game->np_y = 0;
-	game->game_win = 0;
-	game->exit_x = 0;
-	game->exit_y = 0;
-	game->collectables = 0;
-	game->movements = 0;
-	game->p = 0;
-	game->e = 0;
-	game->map_cpy = NULL;
-	game->map = NULL;
-	game->img = NULL;
-	game->mlx = NULL;
-	game->win = NULL;
-}
-
-void	*file_to_img(t_game *game, char *path)
-{
-	return (mlx_xpm_file_to_image(game->mlx, path, 
-			&game->img_width, &game->img_height));
-}
-
-int	check_images(t_game *game, int size)
+int	char_check(t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (i < size)
+	while (game->map[i])
 	{
-		if (!game->img[i])
-			return (1);
+		j = 0;
+		while (game->map[i][j] != '\0' && game->map[i][j] != '\n')
+		{
+			if (game->map[i][j] != '1' && game->map[i][j] != 'P' 
+				&& game->map[i][j] != 'E' && game->map[i][j] != 'C' 
+				&& game->map[i][j] != '0')
+				return (perror("Wrong char in map"), close_window(game));
+			j++;
+		}
 		i++;
 	}
 	return (0);
 }
 
-int	get_length(t_game *game)
+int	bad_extension(t_game *game)
 {
-	char	*line;
-	int		size;
+	int	size;
+	int	i;
+	int	check;
 
-	game->fd = open(game->file_name, O_RDONLY);
-	if (game->fd < 0)
-		return (perror("Wrong file"), close(game->fd), close_window(game));
-	if (bad_extension(game))
-		return (close(game->fd), close_window(game));
-	line = get_next_line(game->fd);
-	game->line_len = ft_strlen(line);
-	size = 1;
-	while (line && size++)
+	size = ft_strlen(game->file_name);
+	if (size < 11)
+		return (perror("Bad file extension"), 1);
+	else if (game->file_name[size - 4] != '.' 
+		|| game->file_name[size - 3] != 'b' 
+		|| game->file_name[size - 2] != 'e' 
+		|| game->file_name[size - 1] != 'r')
+		return (perror("Bad file extension"), close_window(game));
+	i = 5;
+	while (i < (size - 4))
 	{
-		free(line);
-		line = get_next_line(game->fd);
+		check = ft_isalnum(game->file_name[i]);
+		if (check == 1 && game->file_name[i] != '_' 
+			&& game->file_name[i] != '-')
+			return (perror("Bad file extension"), close_window(game));
+		i++;
 	}
-	close(game->fd);
-	return (size);
-}
-
-int	window_check(t_game *game)
-{
-	int	screen_width;
-	int	screen_height;
-
-	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
-	if (game->win_width > screen_width || game->win_height > screen_height)
-		return (1);
 	return (0);
 }

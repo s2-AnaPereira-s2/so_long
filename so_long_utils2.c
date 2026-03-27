@@ -1,74 +1,93 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils2.c                                   :+:      :+:    :+:   */
+/*   so_long_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 15:26:56 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 09:20:48 by ana-pdos         ###   ########.fr       */
+/*   Created: 2025/07/08 13:42:19 by ana-pdos          #+#    #+#             */
+/*   Updated: 2025/07/08 19:00:36 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_putnbr(int n)
+void	map_copy(t_game *game)
 {
-	char	number;
-	int		count;
-	long	nb;
+	int	y;
 
-	nb = (long)n;
-	count = 0;
-	if (nb < 0)
+	y = 0;
+	game->map_cpy = ft_calloc((game->map_height / 32) + 1, sizeof(char *));
+	if (!game->map_cpy)
+		return ;
+	while (game->map[y])
 	{
-		count += write (1, "-", 1);
-		nb = -nb;
+		game->map_cpy[y] = ft_strdup(game->map[y]);
+		if (!game->map_cpy[y])
+			return ;
+		y++;
 	}
-	if (nb > 9)
-		count += ft_putnbr(nb / 10);
-	number = (nb % 10) + '0';
-	count += write (1, &number, 1);
-	return (count);
 }
 
-int	ft_putstr(char *s)
+void	get_cep(t_game *game)
 {
-	int	i;
+	int	y;
+	int	x;
 
-	if (!s)
-		return (write(1, "(null)", 6));
-	i = 0;
-	while (s[i] != '\0')
+	y = 0;
+	while (game->map[y])
 	{
-		write(1, &s[i], 1);
-		i++;
+		x = 0;
+		while (game->map[y][x] != '\n' && game->map[y][x] != '\0')
+		{
+			if (game->map[y][x] == 'P')
+				game->p += 1;
+			else if (game->map[y][x] == 'E')
+				game->e += 1;
+			else if (game->map[y][x] == 'C')
+				game->collectables += 1;
+			x++;
+		}
+		y++;
 	}
-	return (i);
 }
 
-static int	ft_unsigned_length(unsigned int n)
+void	get_pos(t_game *game)
 {
-	int	count;
+	int	y;
+	int	x;
 
-	count = 0;
-	if (n == 0)
-		return (1);
-	while (n != 0)
+	y = 0;
+	while (game->map[y])
 	{
-		n /= 10;
-		count++;
+		x = 0;
+		while (game->map[y][x] != '\n' && game->map[y][x] != '\0')
+		{
+			if (game->map[y][x] == 'P')
+			{
+				game->p_x = game->img_width * x;
+				game->p_y = game->img_height * y;
+			}
+			else if (game->map[y][x] == 'E')
+			{
+				game->exit_x = game->img_width * x;
+				game->exit_y = game->img_height * y;
+			}
+			x++;
+		}
+		y++;
 	}
-	return (count);
 }
 
-int	ft_putunbr(unsigned int n)
+int	get_helpers(t_game *game)
 {
-	char	c;
+	map_copy(game);
+	get_pos(game);
+	get_cep(game);
+	return (0);
+}
 
-	if (n > 9)
-		ft_putunbr(n / 10);
-	c = (n % 10) + '0';
-	write(1, &c, 1);
-	return (ft_unsigned_length(n));
+int	put_img_window(t_game *game, char *img, int x, int y)
+{
+	return (mlx_put_image_to_window(game->mlx, game->win, img, x, y));
 }

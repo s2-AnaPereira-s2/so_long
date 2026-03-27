@@ -6,11 +6,14 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:35:46 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 08:55:15 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:49:56 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <unistd.h>
 
 static int	check(const char c, va_list args)
 {
@@ -23,13 +26,19 @@ static int	check(const char c, va_list args)
 		return (1);
 	}
 	else if (c == 's')
-		return (ft_putstr(va_arg(args, char *)));
+		return (ft_putstr_pf(va_arg(args, char *)));
+	else if (c == 'p')
+		return (ft_hex_convert_p(va_arg(args, void *), "0123456789abcdef"));
 	else if (c == 'd' || c == 'i')
-		return (ft_putnbr(va_arg(args, int)));
+		return (ft_putnbr_pf(va_arg(args, int)));
 	else if (c == 'u')
-		return (ft_putunbr(va_arg(args, unsigned int)));
+		return (ft_putunbr_pf(va_arg(args, unsigned int)));
+	else if (c == 'x')
+		return (ft_hex_convert_lower(va_arg(args, unsigned int)));
+	else if (c == 'X')
+		return (ft_hex_convert_upper(va_arg(args, unsigned int)));
 	else if (c == '%')
-		return (ft_putchar('%'));
+		return (ft_putchar_pf('%'));
 	return (0);
 }
 

@@ -6,27 +6,12 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:40:07 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 08:55:03 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:54:43 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char	*s;
-	unsigned char	*d;
-
-	s = (unsigned char *)src;
-	d = (unsigned char *)dest;
-	if (!dest && !src)
-		return (NULL);
-	while (n--)
-	{
-		*d++ = *s++;
-	}
-	return (dest);
-}
+#include "libft.h"
+#include <stdio.h>
 
 int	ft_length(int n)
 {

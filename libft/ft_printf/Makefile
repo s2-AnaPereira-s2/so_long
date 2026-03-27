@@ -5,43 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/18 14:34:13 by ana-pdos          #+#    #+#              #
-#    Updated: 2025/07/14 09:45:44 by ana-pdos         ###   ########.fr        #
+#    Created: 2025/06/02 16:33:37 by ana-pdos          #+#    #+#              #
+#    Updated: 2025/08/13 21:51:29 by ana-pdos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-MLX_DIR = minilibx_macos_opengl
-INCLUDES = -I. -I$(MLX_DIR) -I$(LIBFT_DIR)
-MLX_LIBS = $(MLX_DIR)/libmlx.a -framework OpenGL -framework AppKit
-LIBFT_DIR = libft
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
-CFILES = so_long.c so_long_utils2.c so_long_utils3.c so_long_utils4.c draw_map.c move_player.c map_check.c clean.c
+NAME = libftprintf.a
+CFILES = ft_hex_convert_lower.c ft_hex_convert_upper.c ft_hex_convert_p.c ft_printf.c ft_putnbr_pf.c ft_putstr_pf.c ft_putchar_pf.c ft_putunbr_pf.c
 OFILES = $(CFILES:.c=.o)
-
 
 .PHONY: all clean fclean re 
 
 
 all: $(NAME)
 
-$(LIBFT_LIB):
-	$(MAKE) -C $(LIBFT_DIR)
+$(NAME): $(OFILES)
+	ar rcs $(NAME) $(OFILES)
 
-$(NAME): $(OFILES) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OFILES) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME)
-
-%.o: %.c so_long.h $(LIBFT_DIR)/libft.h
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+%.o: %.c ft_printf.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OFILES)
-	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all

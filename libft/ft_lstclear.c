@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 12:42:31 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 08:54:56 by ana-pdos         ###   ########.fr       */
+/*   Created: 2025/07/31 14:27:05 by ana-pdos          #+#    #+#             */
+/*   Updated: 2025/08/13 21:59:20 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-static void	*ft_memset(void *s, int c, size_t n)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t			i;
-	unsigned char	*a;
+	t_list	*temp;
+	t_list	*next;
 
-	a = (unsigned char *)s;
-	if (n > 0)
+	temp = *lst;
+	while (temp)
 	{
-		i = 0;
-		while (i <= n - 1)
-		{
-			a[i] = c;
-			i++;
-		}
+		next = temp->next;
+		del(temp->content);
+		free(temp);
+		temp = next;
 	}
-	else
-		return (s);
-	return (s);
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
-	return (ptr);
+	*lst = NULL;
 }

@@ -66,7 +66,7 @@ void	free_map(t_game *game)
 	game->map = NULL;
 }
 
-int	close_window(t_game *game)
+/*int	close_window(t_game *game)
 {
 	if (game->map)
 		free_map(game);
@@ -77,6 +77,26 @@ int	close_window(t_game *game)
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	ft_printf("\n%s\n", "...bye bye!!!");
+	exit(0);
+	return (0);
+}*/
+
+int	close_window(t_game *game)
+{
+	if (game->map)
+		free_map(game);
+	if (game->img)
+		free_images(game);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		#ifdef __linux__
+			mlx_destroy_display(game->mlx);
+		#endif
 		free(game->mlx);
 	}
 	ft_printf("\n%s\n", "...bye bye!!!");

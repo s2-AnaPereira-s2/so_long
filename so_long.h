@@ -12,21 +12,46 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define KEY_UP     65362
-# define KEY_DOWN   65364
-# define KEY_LEFT   65361
-# define KEY_RIGHT  65363
-# define KEY_ESC    65307
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
 
+// -------------------- Keycodes --------------------
+#ifdef __APPLE__
+    #define KEY_UP     126
+    #define KEY_DOWN   125
+    #define KEY_LEFT   123
+    #define KEY_RIGHT  124
+    #define KEY_ESC    53
+    #define KEY_W      13
+    #define KEY_A      0
+    #define KEY_S      1
+    #define KEY_D      2
+#else
+    #define KEY_UP     65362
+    #define KEY_DOWN   65364
+    #define KEY_LEFT   65361
+    #define KEY_RIGHT  65363
+    #define KEY_ESC    65307
+    #define KEY_W      119
+    #define KEY_A      97
+    #define KEY_S      115
+    #define KEY_D      100
+#endif
+
+// -------------------- Other defines --------------------
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
+
+// -------------------- Includes --------------------
+# include "libft/libft.h"
 # include <stddef.h>
 # include <stdlib.h>
-# include "mlx.h"
+# include "minilibx_macos_opengl/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
+
+#endif
+
 
 typedef struct s_game
 {
@@ -59,17 +84,6 @@ typedef struct s_game
 	int		e;
 }	t_game;
 
-char	*get_next_line(int fd);
-int		ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char *s, int start, int len);
-char	*ft_strdup(char *s);
-int		ft_putnbr(int n);
-int		ft_putstr(char *s);
-int		ft_printf(const char *para, ...);
-int		ft_putchar(char c);
-int		ft_putunbr(unsigned int n);
-char	*ft_itoa(int n);
 int		get_image(t_game *game);
 int		get_map(t_game *game);
 int		put_image_map(int y, int x, t_game *game);
@@ -78,7 +92,6 @@ void	get_score(t_game *game);
 int		move_player(t_game *game, int keycode);
 int		move_check(t_game *game);
 int		map_check(t_game *game);
-void	*ft_calloc(size_t nmemb, size_t size);
 void	map_copy(t_game *game);
 void	get_cep(t_game *game);
 void	get_pos(t_game *game);
@@ -93,4 +106,4 @@ int		window_check(t_game *game);
 int		char_check(t_game *game);
 int		bad_extension(t_game *game);
 
-#endif
+

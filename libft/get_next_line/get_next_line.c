@@ -6,11 +6,14 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 18:19:32 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 08:54:33 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:54:05 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "get_next_line.h"
 
 static char	*check_leftovers(char **leftovers)
 {
@@ -21,16 +24,14 @@ static char	*check_leftovers(char **leftovers)
 
 	if (!*leftovers)
 		return (NULL);
-	length = ft_strlen(*leftovers);
+	length = ft_strlen_gnl(*leftovers);
 	i = 0;
 	while ((*leftovers)[i])
 	{
 		if ((*leftovers)[i] == '\n')
 		{
-			line = ft_substr(*leftovers, 0, i + 1);
-			temp = ft_substr(*leftovers, i + 1, length - (i + 1));
-			if (!temp)
-				return (free(line), NULL);
+			line = ft_substr_gnl(*leftovers, 0, i + 1);
+			temp = ft_substr_gnl(*leftovers, i + 1, length - (i + 1));
 			free(*leftovers);
 			*leftovers = temp;
 			return (line);
@@ -47,8 +48,8 @@ static char	*get_line(char	**leftovers, char	*temp, ssize_t bytes)
 
 	temp[bytes] = '\0';
 	if (!*leftovers)
-		*leftovers = ft_strdup("");
-	joined = ft_strjoin(*leftovers, temp);
+		*leftovers = ft_strdup_gnl("");
+	joined = ft_strjoin_gnl(*leftovers, temp);
 	if (!joined)
 		return (free(temp), NULL);
 	*leftovers = joined;
@@ -66,7 +67,7 @@ char	*get_next_line(int fd)
 	ssize_t		bytes;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (free(leftovers), leftovers = NULL, NULL);
+		return (NULL);
 	line = check_leftovers(&leftovers);
 	if (line)
 		return (line);
